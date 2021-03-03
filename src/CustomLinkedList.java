@@ -27,44 +27,49 @@ public class CustomLinkedList {
             return "This LinkedList is empty";
         } else {
             ArrayList<Integer> list = new ArrayList<>();
-            Node currentNode = firstNode;
+            Node currentNode = this.firstNode;
             int i = 1;
             do {
                 list.add(currentNode.value);
-                currentNode = currentNode.getNext();
-            } while (i <= numberOfNodes);
+                if (currentNode.hasNext()) {
+                    currentNode = currentNode.getNext();
+                    i++;
+                } else {
+                    break;
+                }
+            } while (i <= this.numberOfNodes);
             return list.toString();
         }
     }
 
     public void addFirst(int value) {
-        if (firstNode != null) {
+        if (this.firstNode != null) {
             Node newNode = new Node(value);
-            newNode.setNext(firstNode);
-            firstNode = newNode;
-            numberOfNodes++;
+            newNode.setNext(this.firstNode);
+            this.firstNode = newNode;
+            this.numberOfNodes++;
         } else {
-            firstNode = new Node(value);
-            numberOfNodes++;
+            this.firstNode = new Node(value);
+            this.numberOfNodes++;
         }
     }
 
     public void addLast(int value) {
-        if (lastNode != null) {
+        if (this.lastNode != null) {
             Node newNode = new Node(value);
-            lastNode.setNext(newNode);
-            lastNode = newNode;
-            numberOfNodes++;
+            this.lastNode.setNext(newNode);
+            this.lastNode = newNode;
+            this.numberOfNodes++;
         } else {
-            lastNode = new Node(value);
-            numberOfNodes++;
+            this.lastNode = new Node(value);
+            this.numberOfNodes++;
         }
     }
 
     public int deleteFirst() {
-        if (firstNode != null) {
-            firstNode = firstNode.getNext();
-            numberOfNodes--;
+        if (this.firstNode != null) {
+            this.firstNode = firstNode.getNext();
+            this.numberOfNodes--;
             return 1;
         } else {
             return -1;
@@ -72,14 +77,15 @@ public class CustomLinkedList {
     }
 
     public void deleteLast() {
-        Node finalNode = getNode(numberOfNodes - 2);
-        lastNode = finalNode;
+        // TODO: I might need to adjust the value of the argument in the getNode function
+        Node finalNode = getNode(this.numberOfNodes - 2);
+        this.lastNode = finalNode;
     }
 
     private Node getNode(int index) {
-        Node currentNode = firstNode;
+        Node currentNode = this.firstNode;
         if (index == 0) {
-            return firstNode;
+            return this.firstNode;
         } else {
             for (int i = 0 ; i < index ; i++) {
                 currentNode = currentNode.getNext();
@@ -89,7 +95,7 @@ public class CustomLinkedList {
     }
 
     public boolean contains(int number) {
-        Node currentNode = firstNode;
+        Node currentNode = this.firstNode;
         int i = 0;
         do {
             if (currentNode.value == number) {
@@ -98,12 +104,12 @@ public class CustomLinkedList {
                 currentNode = currentNode.getNext();
                 i++;
             }
-        } while (i < numberOfNodes);
+        } while (i < this.numberOfNodes);
         return false;
     }
 
     public int indexOf(int number) {
-        Node currentNode = firstNode;
+        Node currentNode = this.firstNode;
         int i = 0;
         do {
             if (currentNode.value == number) {
@@ -112,7 +118,7 @@ public class CustomLinkedList {
                 currentNode = currentNode.getNext();
                 i++;
             }
-        } while (i < numberOfNodes);
+        } while (i < this.numberOfNodes);
         return -1;
     }
 }
