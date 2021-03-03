@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CustomLinkedList {
 
@@ -18,6 +19,22 @@ public class CustomLinkedList {
 
     public CustomLinkedList() {
         this.numberOfNodes = 0;
+    }
+
+    @Override
+    public String toString() {
+        if (this.numberOfNodes == 0) {
+            return "This LinkedList is empty";
+        } else {
+            ArrayList<Integer> list = new ArrayList<>();
+            Node currentNode = firstNode;
+            int i = 1;
+            do {
+                list.add(currentNode.value);
+                currentNode = currentNode.getNext();
+            } while (i <= numberOfNodes);
+            return list.toString();
+        }
     }
 
     public void addFirst(int value) {
