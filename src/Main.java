@@ -4,6 +4,7 @@ public class Main {
 
         CustomLinkedList customLinkedList = new CustomLinkedList();
         customLinkedList.addFirst(34);
+        customLinkedList.addLast(23);
 
         System.out.println(customLinkedList);
     }

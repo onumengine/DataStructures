@@ -23,11 +23,11 @@ public class CustomLinkedList {
 
     @Override
     public String toString() {
-        if (this.numberOfNodes == 0) {
+        if (numberOfNodes == 0) {
             return "This LinkedList is empty";
         } else {
             ArrayList<Integer> list = new ArrayList<>();
-            Node currentNode = this.firstNode;
+            Node currentNode = firstNode;
             int i = 1;
             do {
                 list.add(currentNode.value);
@@ -37,32 +37,36 @@ public class CustomLinkedList {
                 } else {
                     break;
                 }
-            } while (i <= this.numberOfNodes);
+            } while (i <= numberOfNodes);
             return list.toString();
         }
     }
 
     public void addFirst(int value) {
-        if (this.firstNode != null) {
+        if (firstNode != null) {
             Node newNode = new Node(value);
-            newNode.setNext(this.firstNode);
-            this.firstNode = newNode;
-            this.numberOfNodes++;
+            newNode.setNext(firstNode);
+            firstNode = newNode;
+            numberOfNodes++;
         } else {
-            this.firstNode = new Node(value);
-            this.numberOfNodes++;
+            firstNode = new Node(value);
+            lastNode = firstNode;
+            numberOfNodes++;
         }
     }
 
     public void addLast(int value) {
-        if (this.lastNode != null) {
+        if (lastNode != null) {
             Node newNode = new Node(value);
-            this.lastNode.setNext(newNode);
-            this.lastNode = newNode;
-            this.numberOfNodes++;
+            lastNode.setNext(newNode);
+            lastNode = newNode;
+            numberOfNodes++;
+            if (numberOfNodes == 2) {
+                firstNode.setNext(lastNode);
+            }
         } else {
-            this.lastNode = new Node(value);
-            this.numberOfNodes++;
+            lastNode = new Node(value);
+            numberOfNodes++;
         }
     }
 
