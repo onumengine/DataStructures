@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class CustomLinkedList {
 
@@ -19,27 +18,6 @@ public class CustomLinkedList {
 
     public CustomLinkedList() {
         this.numberOfNodes = 0;
-    }
-
-    @Override
-    public String toString() {
-        if (numberOfNodes == 0) {
-            return "This LinkedList is empty";
-        } else {
-            ArrayList<Integer> list = new ArrayList<>();
-            Node currentNode = firstNode;
-            int i = 1;
-            do {
-                list.add(currentNode.value);
-                if (currentNode.hasNext()) {
-                    currentNode = currentNode.getNext();
-                    i++;
-                } else {
-                    break;
-                }
-            } while (i <= numberOfNodes);
-            return list.toString();
-        }
     }
 
     public void addFirst(int value) {
@@ -70,34 +48,6 @@ public class CustomLinkedList {
         }
     }
 
-    public int deleteFirst() {
-        if (this.firstNode != null) {
-            this.firstNode = firstNode.getNext();
-            this.numberOfNodes--;
-            return 1;
-        } else {
-            return -1;
-        }
-    }
-
-    public void deleteLast() {
-        // TODO: I might need to adjust the value of the argument in the getNode function
-        Node finalNode = getNode(this.numberOfNodes - 2);
-        this.lastNode = finalNode;
-    }
-
-    private Node getNode(int index) {
-        Node currentNode = this.firstNode;
-        if (index == 0) {
-            return this.firstNode;
-        } else {
-            for (int i = 0 ; i < index ; i++) {
-                currentNode = currentNode.getNext();
-            }
-        }
-        return currentNode;
-    }
-
     public boolean contains(int number) {
         Node currentNode = this.firstNode;
         int i = 0;
@@ -108,8 +58,39 @@ public class CustomLinkedList {
                 currentNode = currentNode.getNext();
                 i++;
             }
-        } while (i < this.numberOfNodes);
+        } while (i < numberOfNodes);
         return false;
+    }
+
+    public int deleteFirst() {
+        if (firstNode != null) {
+            Node nodeToBeDeleted = firstNode;
+            firstNode = firstNode.getNext();
+            nodeToBeDeleted.setNext(null);
+            numberOfNodes--;
+            return 1;
+        } else {
+            return -1;
+        }
+    }
+
+    public void deleteLast() {
+        Node secondToLastNode = getNodeByIndex(numberOfNodes - 2);
+        secondToLastNode.setNext(null);
+        lastNode = secondToLastNode;
+        numberOfNodes--;
+    }
+
+    private Node getNodeByIndex(int index) {
+        Node currentNode = firstNode;
+        if (index == 0) {
+            return currentNode;
+        } else {
+            for (int i = 1 ; i < index ; i++) {
+                currentNode = currentNode.getNext();
+            }
+        }
+        return currentNode;
     }
 
     public int indexOf(int number) {
@@ -124,5 +105,26 @@ public class CustomLinkedList {
             }
         } while (i < this.numberOfNodes);
         return -1;
+    }
+
+    @Override
+    public String toString() {
+        if (numberOfNodes == 0) {
+            return "This LinkedList is empty";
+        } else {
+            ArrayList<Integer> list = new ArrayList<>();
+            Node currentNode = firstNode;
+            int i = 1;
+            do {
+                list.add(currentNode.value);
+                if (currentNode.hasNext()) {
+                    currentNode = currentNode.getNext();
+                    i++;
+                } else {
+                    break;
+                }
+            } while (i <= numberOfNodes);
+            return list.toString();
+        }
     }
 }
